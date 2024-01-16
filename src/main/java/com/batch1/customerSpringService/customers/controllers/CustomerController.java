@@ -16,6 +16,9 @@ import com.batch1.customerSpringService.customers.dtos.response.CustomerResponse
 import com.batch1.customerSpringService.customers.entities.Customer;
 import com.batch1.customerSpringService.customers.services.CustomerService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -27,18 +30,41 @@ public class CustomerController {
 
     @GetMapping("/")
     public ResponseEntity<?> getAllCustomers() {
+        ModelMapper modelMapper = new ModelMapper();
+        Map<String, Object> resultMap = new HashMap<>();
         try {
             List<Customer> customers = customerService.getAllCustomers();
-            ModelMapper modelMapper = new ModelMapper();
             List<CustomerResponseDto> customerResponseDtos = customers.stream().map(customer -> modelMapper.map(customer, CustomerResponseDto.class)).collect(Collectors.toList());
-            Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("Status", "200");
             resultMap.put("Message", "success");
             resultMap.put("Data", customerResponseDtos);
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            resultMap.put("Status", "500");
+            resultMap.put("Message", "Internal Server Error");
+            resultMap.put("Data", null);
+            return new ResponseEntity<>(resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<?> getCustomerByEmail(@PathVariable("email") String email) {
+        ModelMapper modelMapper = new ModelMapper();
+        Map<String, Object> resultMap = new HashMap<>();
+        try {
+            Customer customer = customerService.getCustomerByEmail(email);
+            CustomerResponseDto customerResponseDto = modelMapper.map(customer, CustomerResponseDto.class);
+            resultMap.put("Status", "200");
+            resultMap.put("Message", "success");
+            resultMap.put("Data", customerResponseDto);
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        } catch (Exception e) {
+            resultMap.put("Status", "500");
+            resultMap.put("Message", "Internal Server Error");
+            resultMap.put("Data", null);
+            return new ResponseEntity<>(resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
     
 }
