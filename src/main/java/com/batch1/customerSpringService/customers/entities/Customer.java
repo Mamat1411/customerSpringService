@@ -30,10 +30,10 @@ public class Customer {
     @Column(name = "postal_code", length = 5)
     private Long postalCode;
 
-    @Column(name = "phone_number", length = 15)
+    @Column(name = "phone_number", length = 15, unique = true)
     private String phoneNumber;
 
-    @Column(name = "email", length = 100)
+    @Column(name = "email", length = 100, unique = true)
     private String email;
 
     @Column(name = "status", length = 50)
