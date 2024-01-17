@@ -2,9 +2,6 @@ package com.batch1.customerSpringService.bookings.entities;
 
 import java.util.Date;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import com.batch1.customerSpringService.customers.entities.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
