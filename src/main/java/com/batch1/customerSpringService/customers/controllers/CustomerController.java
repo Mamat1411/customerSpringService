@@ -106,7 +106,7 @@ public class CustomerController {
             customer.setPostalCode(customerRequestDto.getPostalCode());
             customer.setPhoneNumber(customerRequestDto.getPhoneNumber());
             customer.setEmail(customerRequestDto.getEmail());
-            customer.setStatus(customerRequestDto.getEmail());
+            customer.setStatus(customerRequestDto.getStatus());
             customer.setTypeOfCustomer(customerRequestDto.getTypeOfCustomer());
             customerService.saveCustomer(customer);
             resultMap.put("Status", "200");
