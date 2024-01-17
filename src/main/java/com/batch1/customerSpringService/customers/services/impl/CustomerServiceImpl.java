@@ -33,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public void deleteCustomer(String email) {
         Customer customer = customerRepository.findByEmail(email);
-        customerRepository.deleteById(customer.getId());
+        customerRepository.deleteById(customer.getCustomerId());
     }
     
 }

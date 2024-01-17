@@ -24,10 +24,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
-
-
-
 @RestController
 @RequestMapping("/api/booking")
 public class BookingController {
@@ -132,7 +128,7 @@ public class BookingController {
         Map<String, Object> resultMap = new HashMap<>();
         try {
             Booking booking = bookingService.getBookingById(id);
-            bookingService.deleteBooking(booking.getId());
+            bookingService.deleteBooking(booking.getBookingId());
 
             resultMap.put("Status", "200");
             resultMap.put("Message", "success");

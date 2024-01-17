@@ -4,17 +4,14 @@ import java.util.Date;
 import java.util.List;
 
 import com.batch1.customerSpringService.bookings.entities.Booking;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -26,8 +23,8 @@ public class Invoice {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "invoice_id")
+    private Long invoiceId;
 
     @Column(name = "invoice_date")
     private Date invoiceDate;
@@ -49,8 +46,8 @@ public class Invoice {
 
     @Column(name = "payment_status")
     private String paymentStatus;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "booking_id", referencedColumnName = "id")
-    private Booking bookingId;
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_booking_id")
+    private List<Booking> bookings;
 }

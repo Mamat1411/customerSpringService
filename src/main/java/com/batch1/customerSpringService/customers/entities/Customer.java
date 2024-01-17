@@ -3,8 +3,8 @@ package com.batch1.customerSpringService.customers.entities;
 import java.util.List;
 
 import com.batch1.customerSpringService.bookings.entities.Booking;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,8 +22,8 @@ public class Customer {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "customer_id")
+    private Long customerId;
 
     @Column(name = "first_name", length = 50)
     private String firstName;
@@ -49,7 +49,6 @@ public class Customer {
     @Column(name = "type_of_customer", length = 50)
     private String typeOfCustomer;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "customerId", fetch = FetchType.LAZY)
-    private List<Booking> booking;
+    @OneToMany(mappedBy = "fkCustomerId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Booking> bookings;
 }
