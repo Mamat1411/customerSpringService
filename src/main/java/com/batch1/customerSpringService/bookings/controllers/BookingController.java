@@ -16,7 +16,6 @@ import com.batch1.customerSpringService.bookings.dtos.response.BookingResponseDt
 import com.batch1.customerSpringService.bookings.entities.Booking;
 import com.batch1.customerSpringService.bookings.services.BookingService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -36,7 +35,7 @@ public class BookingController {
             resultMap.put("Status", "200");
             resultMap.put("Message", "success");
             resultMap.put("Data", bookingResponseDtos);
-            
+
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
         } catch (Exception e) {
             resultMap.put("Status", "500");
