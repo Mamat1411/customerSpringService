@@ -50,6 +50,6 @@ public class Customer {
     private String typeOfCustomer;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "customer_id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customerId", fetch = FetchType.LAZY)
     private List<Booking> booking;
 }

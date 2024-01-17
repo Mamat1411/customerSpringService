@@ -47,5 +47,5 @@ public class Booking {
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private Customer customer_id;
+    private Customer customerId;
 }
