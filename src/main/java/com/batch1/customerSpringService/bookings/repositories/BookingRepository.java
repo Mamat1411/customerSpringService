@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import com.batch1.customerSpringService.bookings.entities.Booking;
 
 public interface BookingRepository extends JpaRepository<Booking, Long>{
-    @Query(value = "select * from bookings where id =?1", nativeQuery = true)
-    Booking getBookingById(Long id);
+    @Query(value = "select * from bookings where booking_id =?1", nativeQuery = true)
+    Booking getBookingById(Long bookingId);
 }
