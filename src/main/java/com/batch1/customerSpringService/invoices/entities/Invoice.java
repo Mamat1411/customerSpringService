@@ -1,7 +1,6 @@
 package com.batch1.customerSpringService.invoices.entities;
 
 import java.util.Date;
-import java.util.List;
 
 import com.batch1.customerSpringService.bookings.entities.Booking;
 
@@ -12,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -47,7 +47,7 @@ public class Invoice {
     @Column(name = "payment_status")
     private String paymentStatus;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_booking_id")
-    private List<Booking> bookings;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_booking_id", referencedColumnName = "booking_id")
+    private Booking bookingId;
 }
