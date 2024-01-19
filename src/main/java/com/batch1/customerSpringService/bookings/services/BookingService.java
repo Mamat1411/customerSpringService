@@ -9,4 +9,6 @@ public interface BookingService {
     Booking getBookingById(Long id);
     Booking saveBooking(Booking booking);
     void deleteBooking(Long id);
+
+    void sendBookingToCargo(String data);
 }

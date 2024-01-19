@@ -16,6 +16,9 @@ import com.batch1.customerSpringService.bookings.dtos.requests.BookingRequestDto
 import com.batch1.customerSpringService.bookings.dtos.response.BookingResponseDto;
 import com.batch1.customerSpringService.bookings.entities.Booking;
 import com.batch1.customerSpringService.bookings.services.BookingService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +33,18 @@ public class BookingController {
     
     @Autowired
     private BookingService bookingService;
+
+    private static JsonNode removeKey(JsonNode jsonNode, String keyToRemove) {
+        if (jsonNode.isObject()) {
+            ObjectNode objectNode = (ObjectNode) jsonNode;
+            
+            objectNode.remove(keyToRemove);
+
+            return objectNode;
+        } else {
+            return jsonNode;
+        }
+    }
 
     @GetMapping("/")
     public ResponseEntity<?> getAllBookings() {
@@ -82,6 +97,14 @@ public class BookingController {
         try {
             Booking booking = modelMapper.map(bookingRequestDto, Booking.class);
             bookingService.saveBooking(booking);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            String jsonString = objectMapper.writeValueAsString(booking);
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+            JsonNode modifiedJson = removeKey(jsonNode, "customer_id");
+            String modifiedJsonString = objectMapper.writeValueAsString(modifiedJson);
+            bookingService.sendBookingToCargo(modifiedJsonString);
 
             resultMap.put("Status", "200");
             resultMap.put("Message", "success");
